@@ -1,0 +1,59 @@
+<!-- views/payment.ejs -->
+<%- include("./partials/header") %>
+<nav class="navbar bg-black">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" style="color: white;" href="/">Foodism</a>
+        <a class="nav-link" href="/menu" style="color: white;">Menu</a>
+        <a class="navbar-brand" href="/cart">
+            <i class="fas fa-shopping-cart" style="color: white;"></i>
+        </a>
+    </div>
+</nav>
+<div class="container mt-5" style="padding-bottom: 100px;">
+    <h1>Payment Details</h1>
+    <form action="/process-payment" method="POST">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <!-- Payment form fields for mobile number -->
+        <div class="form-group">
+            <label for="mobileNumber">Mobile Number</label>
+            <input type="tel" class="form-control" id="mobileNumber" name="mobileNumber" placeholder="Enter your mobile number">
+        </div>
+        <!-- Payment form fields for address -->
+        <div class="form-group">
+            <label for="address">Address</label>
+            <textarea class="form-control" id="address" name="address" rows="4" placeholder="Enter your address"></textarea>
+        </div>
+        <!-- Payment form fields for card number -->
+        <div class="form-group">
+            <label for="cardNumber">Card Number</label>
+            <input type="text" class="form-control" id="cardNumber" name="cardNumber">
+        </div>
+
+        <!-- Payment form fields for card expiration date -->
+        <div class="form-group">
+            <label for="expirationDate">Expiration Date (MM/YY)</label>
+            <input type="text" class="form-control" id="expirationDate" name="expirationDate">
+        </div>
+
+        <!-- Payment form fields for CVV (Card Verification Value) -->
+        <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input type="text" class="form-control" id="cvv" name="cvv">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Payment</button>
+    </form>
+</div>
+<script>
+    const paymentForm = document.getElementById('payment-form');
+    paymentForm.addEventListener('submit', (e) => {
+        e.preventDefault(); // Prevent the default form submission
+
+        // You can add JavaScript here to submit the form data to the server (e.g., using fetch or an AJAX library)
+        // After a successful payment, redirect to the "Thank You" page
+        window.location.href = '/thank-you';
+    });
+</script>
+<%- include("./partials/footer") %>

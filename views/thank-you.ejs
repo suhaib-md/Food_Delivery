@@ -1,0 +1,34 @@
+<!-- views/thank-you.ejs -->
+<%- include("./partials/header") %>
+
+<div class="container mt-5">
+    <h1 class="text-center">Thank You for Your Order</h1>
+    <!-- Display the bill here -->
+    <h2>Bill</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% let totalCost = 0; %>
+            <% cartItems.forEach((cartItem) => { %>
+                <% let itemTotal = cartItem.price * cartItem.quantity; %>
+                <tr>
+                    <td><%= cartItem.name %></td>
+                    <td><%= cartItem.quantity %></td>
+                    <td>$<%= cartItem.price.toFixed(2) %></td>
+                    <td>$<%= itemTotal.toFixed(2) %></td>
+                </tr>
+                <% totalCost += itemTotal; %>
+            <% }) %>
+        </tbody>
+    </table>
+    <p class="total-cost">Total Cost: $<%= totalCost.toFixed(2) %></p>
+</div>
+
+<%- include("./partials/footer") %>

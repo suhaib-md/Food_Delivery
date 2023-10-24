@@ -1,0 +1,38 @@
+<%- include("./partials/header") %>
+<nav class="navbar bg-black">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" style="color: white;" href="/">Foodism</a>
+        <a class="nav-link" href="/menu" style="color: white;">Menu</a>
+        <a class="navbar-brand" href="/cart">
+            <i class="fas fa-shopping-cart" style="color: white;"></i>
+        </a>
+    </div>
+</nav>
+<h1 class="text-center mt-5">MENU</h1>
+<div class="container mt-5" style="padding-bottom: 100px;">
+    <div class="row">
+        <% foodItems.forEach((foodItem, index) => { %>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="<%= foodItem.image %>" class="card-img-top" alt="<%= foodItem.name %>">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= foodItem.name %></h5>
+                        <p class="card-text"><%= foodItem.description %></p>
+                        <p class="card-text"><%= foodItem.restaurant %></p>
+                        <p class="card-text">$<%= foodItem.price.toFixed(2) %></p>
+                    </div>
+                    <div class="card-footer">
+                        <form action="/add-to-cart/post/<%= foodItem._id %>" method="POST">
+                            <input type="submit" value="Add to Cart" class="btn btn-primary">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <% if ((index + 1) % 3 === 0) { %>
+                </div>
+                <div class="row">
+            <% } %>
+        <% }) %>
+    </div>
+</div>
+<%- include("./partials/footer") %>

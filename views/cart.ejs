@@ -1,0 +1,101 @@
+<%- include("./partials/header") %>
+<nav class="navbar bg-black">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" style="color: white;" href="/">Foodism</a>
+        <a class="nav-link" href="/menu" style="color: white;">Menu</a>
+        <a class="navbar-brand" href="/cart">
+            <i class="fas fa-shopping-cart" style="color: white;"></i>
+        </a>
+    </div>
+</nav>
+<div class="container mt-5" style="padding-bottom: 100px;">
+    <h1>Your Cart</h1>
+    <div class="row">
+        <% cartItems.forEach((cartItem) => { %>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="<%= cartItem.image %>" class="card-img-top" alt="<%= cartItem.name %>">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= cartItem.name %></h5>
+                        <p class="card-text"><%= cartItem.description %></p>
+                        <p class="card-text">Category: <%= cartItem.category %></p>
+                        <p class="card-text">Price: $<%= cartItem.price.toFixed(2) %></p>
+                        <div class="quantity-control">
+                            <button class="btn btn-sm btn-secondary" onclick="decrementQuantity('<%= cartItem._id %>')">-</button>
+                            <span id="quantity-display-<%= cartItem._id %>"><%= cartItem.quantity %></span>
+                            <button class="btn btn-sm btn-secondary" onclick="incrementQuantity('<%= cartItem._id %>')">+</button>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/remove-from-cart/<%= cartItem._id %>" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i> Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+    <!-- Bill section -->
+    <div class="bill-section">
+        <h2>Bill</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% let totalCost = 0; %>
+                <% cartItems.forEach((cartItem) => { %>
+                    <% let itemTotal = cartItem.price * cartItem.quantity; %>
+                    <tr>
+                        <td><%= cartItem.name %></td>
+                        <td><%= cartItem.quantity %></td>
+                        <td>$<%= cartItem.price.toFixed(2) %></td>
+                        <td>$<%= itemTotal.toFixed(2) %></td>
+                    </tr>
+                    <% totalCost += itemTotal; %>
+                <% }) %>
+            </tbody>
+        </table>
+        <h4 class="total-cost">Total Cost: $<%= totalCost.toFixed(2) %></h4>
+    </div>
+    <a href="/payment" class="btn btn-primary">Proceed to Payment</a>
+</div>
+<script>
+    // JavaScript functions to increment and decrement the quantity
+    function incrementQuantity(itemId) {
+        // Send an AJAX request to increment the quantity
+        fetch(`/increment-quantity/${itemId}`, { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Quantity incremented successfully') {
+                    // Update the displayed quantity in the frontend
+                    const quantityDisplay = document.getElementById(`quantity-display-${itemId}`);
+                    const currentQuantity = parseInt(quantityDisplay.textContent);
+                    quantityDisplay.textContent = currentQuantity + 1;
+                }
+            });
+    }
+
+    function decrementQuantity(itemId) {
+        // Send an AJAX request to decrement the quantity
+        fetch(`/decrement-quantity/${itemId}`, { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Quantity decremented successfully') {
+                    // Update the displayed quantity in the frontend
+                    const quantityDisplay = document.getElementById(`quantity-display-${itemId}`);
+                    const currentQuantity = parseInt(quantityDisplay.textContent);
+                    if (currentQuantity > 0) {
+                        quantityDisplay.textContent = currentQuantity - 1;
+                    }
+                }
+            });
+    }
+</script>
+<%- include("./partials/footer") %>

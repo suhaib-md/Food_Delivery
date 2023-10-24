@@ -1,0 +1,54 @@
+<%- include("./partials/header") %>
+
+<nav class="navbar bg-black">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" style="color: white;" href="/">Foodism</a>
+        <a class="nav-link" href="/menu" style="color: white;">Menu</a>
+        <a class="navbar-brand" href="/cart">
+            <i class="fas fa-shopping-cart" style="color: white;"></i>
+        </a>
+    </div>
+</nav>
+
+<div class="container-fluid p-0">
+    <div class="row">
+        <div class="col-md-6 p-0">
+            <div class="landing-info text-center py-5">
+                <h1 id="titleline">Welcome <br>to Foodism</h1>
+                <p id="msgline">Explore a wide variety of delicious dishes and order with ease.</p>
+                <a href="/menu" class="btn btn-primary">Order Now</a>
+            </div>
+        </div>
+        <div class="col-md-6 p-0">
+            <div class="d-flex align-items-center justify-content-center h-100">
+                <img class="landing-image img-fluid rounded" src="https://lh3.googleusercontent.com/pw/ADCreHd8hvVFQRdI9xEzrfhcII903Oge2-RKI--XTLSYFwuPCkgD_ji1WiHihHgYqAZmMe-mAxadOiOf2BKSXM8tcxHkgSOZVlsuDVeGgktRHXdf9fjjnnEvf6DVlE85tPM923wo9l0gM3XzXVzOzsZ6V93S=w259-h194-s-no?authuser=0" alt="food">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5 text-center">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Features</h2>
+            <ul class="list-unstyled">
+                <li class="list-item">Extensive Menu Selection</li>
+                <li class="list-item">Quick and Easy Ordering</li>
+                <li class="list-item">Delivery Tracking</li>
+                <li class="list-item">User-Friendly Interface</li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h2>Special Offers</h2>
+            <p>Enjoy exciting offers on your <br>favorite dishes every day!</p>
+        </div>
+        <div class="col-md-4">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or feedback, we're here to help.</p>
+            <p>Email: contact@foodism.com</p>
+            <p>Phone: +91 7637265754</p>
+        </div>
+    </div>
+</div>
+
+<%- include("./partials/footer") %>
